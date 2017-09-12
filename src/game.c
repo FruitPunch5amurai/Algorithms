@@ -9,7 +9,7 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
-    
+	Vector2D lineEndpoint = vector2d(400, 0);
     int mx,my;
     float mf = 0;
     Sprite *mouse;
@@ -59,6 +59,8 @@ int main(int argc, char * argv[])
                 NULL,
                 &mouseColor,
                 (int)mf);
+			//Jason
+			gf2d_draw_line(vector2d(0,0),lineEndpoint,vector4d(255,0,0,100));
         gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
         
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
