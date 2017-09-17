@@ -2,10 +2,39 @@
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
+#include "PriorityQueue.h"
 
 int main(int argc, char * argv[])
 {
+	slog("====================");
+	/*
+	PriorityQueue_t *q = CreatePriorityQueue(1);
+	PriorityQueue_Enqueue(q, 'c', 3);
+	PriorityQueue_Enqueue(q, 'a', 1);
+	PriorityQueue_Enqueue(q, 'b', 2);
+	PriorityQueue_Enqueue(q, 'd', 2);
+	char c = PriorityQueue_Dequeue(q).data;
+	char b = PriorityQueue_Dequeue(q).data;
+	char d = PriorityQueue_Dequeue(q).data;
+	char a = PriorityQueue_Dequeue(q).data;
+	PriorityQueue_Enqueue(q, 'c', 1);
+	PriorityQueue_Enqueue(q, 'd', 2);
+	d = PriorityQueue_Dequeue(q).data;
+	c = PriorityQueue_Dequeue(q).data;
+	*/
+	slog("====================");
+	/*
+	PriorityQueue *p = CreatePriorityQueue(10);
+	char c = 'c';
+	char a = 'a';
+	char b = 'b';
+	Insert(p, b, 2);
+	Insert(p, c, 3);
+	Insert(p, a, 1);
+	*/
     /*variable declarations*/
+	PriorityQueue_t *q = CreatePriorityQueue(1);
+
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
@@ -13,6 +42,7 @@ int main(int argc, char * argv[])
     int mx,my;
     float mf = 0;
     Sprite *mouse;
+	Sprite* a, *b, *c, *d;
     Vector4D mouseColor = {255,100,255,200};
     
     /*program initializtion*/
@@ -33,6 +63,19 @@ int main(int argc, char * argv[])
     /*demo setup*/
     sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
+	/*Assignment 1 SetUp*/
+	PriorityQueue_Enqueue(q, mouse, 1);
+	PriorityQueue_Enqueue(q, mouse, 2);
+	PriorityQueue_Enqueue(q, mouse, 2);
+	PriorityQueue_Enqueue(q, mouse, 3);
+	PriorityQueue_Enqueue(q, mouse, 3);
+	PriorityQueue_Enqueue(q, mouse, 3);
+	a = (Sprite*)PriorityQueue_Dequeue(q).data;
+	b = (Sprite*)PriorityQueue_Dequeue(q).data;
+	c = (Sprite*)PriorityQueue_Dequeue(q).data;
+	d = (Sprite*)PriorityQueue_Dequeue(q).data;
+
+
     /*main game loop*/
     while(!done)
     {
@@ -48,7 +91,12 @@ int main(int argc, char * argv[])
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
             gf2d_sprite_draw_image(sprite,vector2d(0,0));
-            
+			/*Assignment1*/
+			gf2d_sprite_draw_image(a, vector2d(100, 100));
+			gf2d_sprite_draw_image(b, vector2d(200, 200));
+			gf2d_sprite_draw_image(c, vector2d(300, 300));
+			gf2d_sprite_draw_image(d, vector2d(400, 400));
+
             //UI elements last
             gf2d_sprite_draw(
                 mouse,
