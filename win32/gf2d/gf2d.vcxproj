@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\entity.c" />
     <ClCompile Include="..\..\src\game.c" />
     <ClCompile Include="..\..\src\gf2d_draw.c" />
     <ClCompile Include="..\..\src\gf2d_graphics.c" />
@@ -93,6 +94,7 @@
     <ClCompile Include="..\..\src\simple_logger.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\entity.h" />
     <ClInclude Include="..\..\include\gf2d_draw.h" />
     <ClInclude Include="..\..\include\gf2d_graphics.h" />
     <ClInclude Include="..\..\include\gf2d_sprite.h" />

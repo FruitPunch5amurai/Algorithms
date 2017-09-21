@@ -15,12 +15,15 @@ typedef struct PriorityQueue
 	element_t *elements;
 	Uint32 numberOfElements;
 	Uint32 size;
+	size_t elementSize;
 
 }PriorityQueue_t;
 
-PriorityQueue_t* CreatePriorityQueue(Uint32 size);
+PriorityQueue_t* CreatePriorityQueue(Uint32 size,size_t datasize);
+void FreePriorityQueue(PriorityQueue_t* q);
 element_t PriorityQueue_Dequeue(PriorityQueue_t* q);
 void PriorityQueue_Enqueue(PriorityQueue_t* q, void *data, Uint32 priority);
+char* PriorityQueue_AsArray(PriorityQueue_t* q);
 /*
 Linked list implementation of a queue
 */
