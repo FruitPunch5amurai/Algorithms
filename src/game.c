@@ -2,7 +2,9 @@
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
+#include "Heap.h"
 #include "PriorityQueue.h"
+#include "List.h"
 
 typedef struct
 {
@@ -49,7 +51,7 @@ int main(int argc, char * argv[])
 	Sprite *sprite, *brick;
 	//Assignment1////////////
 	Brick* brickArray;
-	PriorityQueue_t* BrickPQ = CreatePriorityQueue(1,sizeof(Brick));
+	PQueue* BrickPQ2 = CreatePQueue(1, sizeof(Brick));
 	/////////////////////////
 	static Brick bricklist[] =
 	{
@@ -69,13 +71,24 @@ int main(int argc, char * argv[])
 	float mf = 0;
 	Sprite *mouse;
 	Vector4D mouseColor = { 0,0,255,200 };
+	/*
+	List* l = List_Create(5, sizeof(char));	
+	l = List_Insert(l,'a', l->numElements);
+	l = List_Insert(l, 'b', 0);
+	char b = List_Get(l, 0).data;
+	char a = List_Get(l, 1).data;
+	*/
+
 	//Assignment 1/////////////
 	for (i = 0; i < 10;i++)
 	{
-		PriorityQueue_Enqueue(BrickPQ, &bricklist[i], bricklist[i].width);
+		PQueue_Enqueue(BrickPQ2, &bricklist[i], bricklist[i].width);
 	}
-	brickArray = PriorityQueue_AsArray(BrickPQ);
-	///////////////////////////
+	brickArray = PQueue_AsArray(BrickPQ2);
+
+	
+
+	//////////////////////////
 	/*program initializtion*/
 	init_logger("gf2d.log");
 	slog("---==== BEGIN ====---");
@@ -113,7 +126,7 @@ int main(int argc, char * argv[])
 		gf2d_sprite_draw_image(sprite, vector2d(0, 0));
 
 		//Assignment 1
-		draw_stack(brick, vector2d(600, 700), brickArray, 10);
+		draw_stack(brick, vector2d(600, 700), brickArray, BrickPQ2->list->numElements);
 
 		//UI elements last
 		gf2d_sprite_draw(
@@ -128,10 +141,10 @@ int main(int argc, char * argv[])
 		gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
 
 		if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
-		slog("Rendering at %f FPS", gf2d_graphics_get_frames_per_second());
+		//slog("Rendering at %f FPS", gf2d_graphics_get_frames_per_second());
 	}
 	slog("---==== END ====---");
-	FreePriorityQueue(BrickPQ);
+	FreePQueue(BrickPQ2);
 	return 0;
 }
 /*eol@eof*/
