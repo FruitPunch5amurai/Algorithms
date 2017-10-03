@@ -71,13 +71,11 @@ int main(int argc, char * argv[])
 	float mf = 0;
 	Sprite *mouse;
 	Vector4D mouseColor = { 0,0,255,200 };
-	/*
 	List* l = List_Create(5, sizeof(char));	
 	l = List_Insert(l,'a', l->numElements);
 	l = List_Insert(l, 'b', 0);
 	char b = List_Get(l, 0).data;
 	char a = List_Get(l, 1).data;
-	*/
 
 	//Assignment 1/////////////
 	for (i = 0; i < 10;i++)
@@ -85,10 +83,17 @@ int main(int argc, char * argv[])
 		PQueue_Enqueue(BrickPQ2, &bricklist[i], bricklist[i].width);
 	}
 	brickArray = PQueue_AsArray(BrickPQ2);
-
-	
-
 	//////////////////////////
+	Heap* heap = Heap_Create(10,sizeof(Brick));
+	Brick* brickHeap;
+	for (i = 0; i < 10;i++)
+	{
+		heap = Heap_Insert(heap, &bricklist[i], bricklist[i].width);
+		//PQueue_Enqueue(BrickPQ2, &bricklist[i], bricklist[i].width);
+	}
+	int count = heap->list->numElements;
+	//Wont draw because your dequeing from Heap which is causing numElements to go down to 0
+	brickHeap = Heap_AsArray(heap);
 	/*program initializtion*/
 	init_logger("gf2d.log");
 	slog("---==== BEGIN ====---");
@@ -126,7 +131,7 @@ int main(int argc, char * argv[])
 		gf2d_sprite_draw_image(sprite, vector2d(0, 0));
 
 		//Assignment 1
-		draw_stack(brick, vector2d(600, 700), brickArray, BrickPQ2->list->numElements);
+		draw_stack(brick, vector2d(600, 700), brickHeap, count);
 
 		//UI elements last
 		gf2d_sprite_draw(

@@ -6,7 +6,10 @@ List* List_Create(Uint32 size, size_t elementSize)
 {
 	List* l;
 	if (size <= 0)
+	{
+		slog("Could not initialize list of size 0");
 		return NULL;
+	}
 	l = (List*)malloc(sizeof(List));
 	memset(l, 0, sizeof(List));
 	if (l != NULL);
@@ -17,6 +20,8 @@ List* List_Create(Uint32 size, size_t elementSize)
 		l->size = size;
 		return l;
 	}
+	slog("Could not initialize List");
+	return NULL;
 }
 
 List* List_Insert(List* list,void* data, int index)

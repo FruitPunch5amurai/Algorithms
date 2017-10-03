@@ -2,28 +2,20 @@
 #define __HEAP_H_
 #include <SDL.h>
 
-#include "PriorityQueue.h"
-/*
+#include "List.h"
+
 typedef struct Heap_t
 {
-	element_t *data;
-	Uint32 size;
-	Uint32 numElements;
-	size_t elementSize;
-
+	List* list;
 }Heap;
+Heap* Heap_Create(Uint32 size, size_t elementSize);
+void Heap_Swap(ListElement *x, ListElement* y);
+ListElement* Heap_GetParent(Heap* h, int index);
+Heap* Heap_Insert(Heap* h, void* data, int priority);
+ListElement* Heap_Left(Heap* h, int index);
+ListElement* Heap_Right(Heap* h, int index);
+ListElement Heap_RetrieveMax(Heap* h);
+void Heap_Heapify(Heap* h,int index);
+char* Heap_AsArray(Heap* heap);
 
-Heap* CreateHeap(Uint32 size, size_t elementSize);
-void* Heap_GetMax(Heap* h);
-void* Heap_GetLeft(Heap* h, int index);
-void* Heap_GetRight(Heap* h, int index);
-element_t* Heap_GetParent(Heap* h, int index);
-void* Heap_ExtractMax(Heap* h);
-void Heap_Swap(element_t *x, element_t* y);
-
-void MinHeapify(Heap* h, int index);
-void MinHeap_Insert(Heap* h, void* data, int priority);
-void MinHeap_Delete(Heap* h, int index);
-
-*/
 #endif
