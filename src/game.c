@@ -11,7 +11,11 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
-    
+	/*PathFinding Variables*/
+	int counter = 0;
+	int index = 0;
+	Vector2D nextNode;
+
     int mx,my;
     float mf = 0;
     Sprite *mouse;
@@ -46,6 +50,10 @@ int main(int argc, char * argv[])
 	BreadthFirst* bFirst = BreadthFirst_Create(map);
 	BreadthFirst_MapOut(bFirst, '1');
 	BreadthFirst_GetPathToDestination(bFirst);
+	BreadthFirst_ReturnPathAsVectors(bFirst);
+	index = bFirst->path->numElements -1;
+	nextNode = bFirst->pathVectors[index];
+	
 	/*main game loop*/
     while(!done)
     {
@@ -63,7 +71,28 @@ int main(int argc, char * argv[])
                         
             tilemap_draw(map,vector2d(86,24));
             tilemap_draw_path(path,2, map,vector2d(86,24));
-            //UI elements last
+			counter++;
+			if (counter > 10)
+			{
+				index--;
+				if (index >= 0)
+				{
+					nextNode = bFirst->pathVectors[index];
+					counter = 0;
+				}
+			}
+			//Player Draw
+			gf2d_sprite_draw(
+				map->tileset,
+				vector2d(vector2d(86, 24).x+ (nextNode.x * map->tileset->frame_w), vector2d(86, 24).y + (nextNode.y *map->tileset->frame_h)),
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				2);
+			
+			//UI elements last
             gf2d_sprite_draw(
                 mouse,
                 vector2d(mx,my),
@@ -79,6 +108,7 @@ int main(int argc, char * argv[])
    //     slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
-    return 0;
+	BreadthFirst_Delete(bFirst);
+	return 0;
 }
 /*eol@eof*/

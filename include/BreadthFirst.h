@@ -18,10 +18,13 @@ typedef struct BreadthFirst_t {
 	TileMap *tileMap;
 	GraphNode* nodes;
 	List *path;
+	Vector2D* pathVectors;
 }BreadthFirst;
 
 GraphNode* GraphNode_CreateGraph(TileMap* tilemap);
 BreadthFirst* BreadthFirst_Create(TileMap* tilemap);
-void BreadthFirst_GetPathToDestination(BreadthFirst* b);
+void  BreadthFirst_Delete(BreadthFirst* b);
+void  BreadthFirst_GetPathToDestination(BreadthFirst* b);
 void  BreadthFirst_MapOut(BreadthFirst* a, char tileToIgnore);
+void  BreadthFirst_ReturnPathAsVectors(BreadthFirst* b);
 #endif

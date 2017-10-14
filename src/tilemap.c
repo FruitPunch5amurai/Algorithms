@@ -110,7 +110,8 @@ void tilemap_draw(TileMap *tilemap,Vector2D position)
     if (!tilemap)return;
     if (!tilemap->map)return;
     if (!tilemap->tileset)return;
-    for (j = 0; j < tilemap->height;j++)
+	//Map
+	for (j = 0; j < tilemap->height;j++)
     {
         for (i = 0; i < tilemap->width; i++)
         {
@@ -125,7 +126,8 @@ void tilemap_draw(TileMap *tilemap,Vector2D position)
                 tilemap->map[(j * tilemap->width) + i] - '0');
         }
     }
-    gf2d_sprite_draw(
+	//Player
+	/*    gf2d_sprite_draw(
         tilemap->tileset,
         vector2d(position.x + (tilemap->start.x * tilemap->tileset->frame_w),position.y + (tilemap->start.y * tilemap->tileset->frame_h)),
         NULL,
@@ -133,7 +135,8 @@ void tilemap_draw(TileMap *tilemap,Vector2D position)
         NULL,
         NULL,
         NULL,
-        2);
+        2);*/
+	//Goal
     gf2d_sprite_draw(
         tilemap->tileset,
         vector2d(position.x + (tilemap->end.x * tilemap->tileset->frame_w),position.y + (tilemap->end.y * tilemap->tileset->frame_h)),

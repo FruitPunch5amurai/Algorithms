@@ -14,7 +14,7 @@ List* List_Create(Uint32 size, size_t elementSize)
 	memset(l, 0, sizeof(List));
 	if (l != NULL);
 	{
-		l->list = malloc(sizeof(ListElement) * size);
+		l->list = (ListElement*)malloc(sizeof(ListElement) * size);
 		memset(l->list, 0, sizeof(ListElement)* size);
 		l->typeSize = elementSize;
 		l->size = size;

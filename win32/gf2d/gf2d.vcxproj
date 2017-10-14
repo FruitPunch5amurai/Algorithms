@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D14239CC-CCD9-462B-B3BA-EB79EDA88B79}</ProjectGuid>
     <RootNamespace>gf2d</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -60,7 +60,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\LakeToya\Desktop\IT485\gameframework2d\win32\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"SDL2.lib";"SDL2main.lib";"SDL2_image.lib";"SDL2_mixer.lib";"SDL2_ttf.lib";%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -84,7 +84,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Astar.c" />
     <ClCompile Include="..\..\src\BreadthFirst.c" />
     <ClCompile Include="..\..\src\entity.c" />
     <ClCompile Include="..\..\src\game.c" />
@@ -99,7 +98,6 @@
     <ClCompile Include="..\..\src\tilemap.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Astar.h" />
     <ClInclude Include="..\..\include\BreadthFirst.h" />
     <ClInclude Include="..\..\include\entity.h" />
     <ClInclude Include="..\..\include\gf2d_draw.h" />
