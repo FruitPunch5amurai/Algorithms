@@ -24,17 +24,17 @@ List* List_Create(Uint32 size, size_t elementSize)
 	return NULL;
 }
 
-List* List_Insert(List* list,void* data, int index)
+List* List_Insert(List* list, void* data, int index)
 {
 	if (list == NULL)
 		return NULL;
 	if (index <= list->size)
 	{
-		if(list->numElements >= list->size)
+		if (list->numElements >= list->size)
 		{
 			list->size = list->size * 2;
 			list->list = (ListElement*)realloc(list->list, (list->size) * sizeof(ListElement));
-			memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size/2));
+			memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size / 2));
 		}
 		memmove(&list->list[index + 1], &list->list[index], sizeof(ListElement)*(list->numElements - index));
 		list->list[index].data = data;
@@ -46,9 +46,14 @@ List* List_Insert(List* list,void* data, int index)
 }
 List* List_Delete(List* list, int index)
 {
-	memmove(&list->list[index], &list->list[index + 1], sizeof(ListElement)*list->numElements);
+	if (list->numElements == 0)
+	{
+		slog("List is empty, cannot delete any more...");
+		return NULL;
+	}
+	memmove(&list->list[index], &list->list[index + 1], sizeof(ListElement)*(list->numElements - index));
 	list->numElements--;
-	memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size - list->numElements));
+	//memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size - list->numElements));
 	return list;
 }
 ListElement List_Get(List* list, int index)
@@ -56,7 +61,7 @@ ListElement List_Get(List* list, int index)
 	return list->list[index];
 }
 char* List_AsArray(List* list)
-{	
+{
 	int i, numOfElements;
 	char* ptr;
 	char* data;
@@ -70,7 +75,7 @@ char* List_AsArray(List* list)
 		ptr = ptr + list->typeSize;
 	}
 	return data;
-	
+
 }
 
 void List_Free(List* list)

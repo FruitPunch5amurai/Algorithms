@@ -51,9 +51,8 @@ int main(int argc, char * argv[])
 	BreadthFirst_MapOut(bFirst, '1');
 	BreadthFirst_GetPathToDestination(bFirst);
 	BreadthFirst_ReturnPathAsVectors(bFirst);
-	index = bFirst->path->numElements -1;
-	nextNode = bFirst->pathVectors[index];
-	
+	index = bFirst->graph->path->numElements -1;
+	nextNode = bFirst->graph->pathVectors[index];
 	/*main game loop*/
     while(!done)
     {
@@ -77,7 +76,7 @@ int main(int argc, char * argv[])
 				index--;
 				if (index >= 0)
 				{
-					nextNode = bFirst->pathVectors[index];
+					nextNode = bFirst->graph->pathVectors[index];
 					counter = 0;
 				}
 			}
@@ -91,7 +90,7 @@ int main(int argc, char * argv[])
 				NULL,
 				NULL,
 				2);
-			
+
 			//UI elements last
             gf2d_sprite_draw(
                 mouse,
@@ -108,7 +107,7 @@ int main(int argc, char * argv[])
    //     slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
-	BreadthFirst_Delete(bFirst);
+	BreadthFirst_Free(bFirst);
 	return 0;
 }
 /*eol@eof*/

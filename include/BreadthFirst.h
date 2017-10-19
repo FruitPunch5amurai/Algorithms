@@ -6,24 +6,13 @@
 #include "TileMap.h"
 #include "gf2d_vector.h"
 #include "PriorityQueue.h"
-typedef struct node_t
-{
-	int visited;
-	int cameFrom;
-}GraphNode;
-
+#include "Graph.h"
 typedef struct BreadthFirst_t {
 
-	PQueue *frontier;
-	TileMap *tileMap;
-	GraphNode* nodes;
-	List *path;
-	Vector2D* pathVectors;
+	Graph* graph;
 }BreadthFirst;
 
-GraphNode* GraphNode_CreateGraph(TileMap* tilemap);
 BreadthFirst* BreadthFirst_Create(TileMap* tilemap);
-void  BreadthFirst_Delete(BreadthFirst* b);
 void  BreadthFirst_GetPathToDestination(BreadthFirst* b);
 void  BreadthFirst_MapOut(BreadthFirst* a, char tileToIgnore);
 void  BreadthFirst_ReturnPathAsVectors(BreadthFirst* b);
