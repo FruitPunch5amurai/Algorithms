@@ -95,6 +95,7 @@
     <ClCompile Include="..\..\src\List.c" />
     <ClCompile Include="..\..\src\PriorityQueue.c" />
     <ClCompile Include="..\..\src\simple_logger.c" />
+    <ClCompile Include="..\..\src\Stack.c" />
     <ClCompile Include="..\..\src\tilemap.c" />
   </ItemGroup>
   <ItemGroup>
@@ -110,10 +111,15 @@
     <ClInclude Include="..\..\include\List.h" />
     <ClInclude Include="..\..\include\PriorityQueue.h" />
     <ClInclude Include="..\..\include\simple_logger.h" />
+    <ClInclude Include="..\..\include\Stack.h" />
     <ClInclude Include="..\..\include\tilemap.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\levels\tilemap.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\include\DepthFirst.h" />
+    <Text Include="..\..\src\DepthFirst.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

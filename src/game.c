@@ -1,9 +1,11 @@
 #include <SDL.h>
+#include "Stack.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
 #include "BreadthFirst.h"
 #include "tilemap.h"
+#include "Stack.h"
 
 int main(int argc, char * argv[])
 {
@@ -11,10 +13,12 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
-	/*PathFinding Variables*/
+	/*PathFinding Variables and for updating draw*/
 	int counter = 0;
 	int index = 0;
 	Vector2D nextNode;
+
+	Stack* stack;
 
     int mx,my;
     float mf = 0;
@@ -51,8 +55,18 @@ int main(int argc, char * argv[])
 	BreadthFirst_MapOut(bFirst, '1');
 	BreadthFirst_GetPathToDestination(bFirst);
 	BreadthFirst_ReturnPathAsVectors(bFirst);
+	/*For Updating Entity Draw*/
 	index = bFirst->path->numElements -1;
 	nextNode = bFirst->pathVectors[index];
+	
+	/*Testing Stack DataType*/
+	stack = Stack_Create(1, sizeof(char));
+	stack = Stack_Push(stack, 'a');
+	stack = Stack_Push(stack, 'b');
+	stack = Stack_Push(stack, 'c');
+	char c = Stack_Pop(stack).data;
+	char b = Stack_Pop(stack).data;
+	char a = Stack_Pop(stack).data;
 	
 	/*main game loop*/
     while(!done)
@@ -72,7 +86,7 @@ int main(int argc, char * argv[])
             tilemap_draw(map,vector2d(86,24));
             tilemap_draw_path(path,2, map,vector2d(86,24));
 			counter++;
-			if (counter > 10)
+			if (counter > 15)
 			{
 				index--;
 				if (index >= 0)
@@ -108,7 +122,9 @@ int main(int argc, char * argv[])
    //     slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
+	/*Clean Up*/
 	BreadthFirst_Delete(bFirst);
+	Stack_Free(stack);
 	return 0;
 }
 /*eol@eof*/

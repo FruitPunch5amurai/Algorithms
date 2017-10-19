@@ -46,9 +46,14 @@ List* List_Insert(List* list,void* data, int index)
 }
 List* List_Delete(List* list, int index)
 {
-	memmove(&list->list[index], &list->list[index + 1], sizeof(ListElement)*list->numElements);
+	if (list->numElements == 0)
+	{
+		slog("List is empty, cannot delete any more...");
+		return NULL;
+	}
+	memmove(&list->list[index], &list->list[index + 1], sizeof(ListElement)*(list->numElements - index));
 	list->numElements--;
-	memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size - list->numElements));
+	//memset(&list->list[list->numElements], 0, sizeof(ListElement)* (list->size - list->numElements));
 	return list;
 }
 ListElement List_Get(List* list, int index)
