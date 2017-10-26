@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\BreadthFirst.c" />
+    <ClCompile Include="..\..\src\DepthFirst.c" />
     <ClCompile Include="..\..\src\entity.c" />
     <ClCompile Include="..\..\src\game.c" />
     <ClCompile Include="..\..\src\gf2d_draw.c" />
@@ -96,10 +97,12 @@
     <ClCompile Include="..\..\src\List.c" />
     <ClCompile Include="..\..\src\PriorityQueue.c" />
     <ClCompile Include="..\..\src\simple_logger.c" />
+    <ClCompile Include="..\..\src\Stack.c" />
     <ClCompile Include="..\..\src\tilemap.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\BreadthFirst.h" />
+    <ClInclude Include="..\..\include\DepthFirst.h" />
     <ClInclude Include="..\..\include\entity.h" />
     <ClInclude Include="..\..\include\gf2d_draw.h" />
     <ClInclude Include="..\..\include\gf2d_graphics.h" />
@@ -112,6 +115,7 @@
     <ClInclude Include="..\..\include\List.h" />
     <ClInclude Include="..\..\include\PriorityQueue.h" />
     <ClInclude Include="..\..\include\simple_logger.h" />
+    <ClInclude Include="..\..\include\Stack.h" />
     <ClInclude Include="..\..\include\tilemap.h" />
   </ItemGroup>
   <ItemGroup>

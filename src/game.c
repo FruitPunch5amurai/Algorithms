@@ -2,7 +2,9 @@
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
+#include "DepthFirst.h"
 #include "BreadthFirst.h"
+#include "Stack.h"
 #include "tilemap.h"
 
 int main(int argc, char * argv[])
@@ -22,7 +24,8 @@ int main(int argc, char * argv[])
     TileMap *map;
     Vector4D mouseColor = {0,0,255,200};
     static Vector2D path[2];
-   
+	/*Stack*/
+	Stack* stack;
     /*program initializtion*/
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
@@ -46,13 +49,30 @@ int main(int argc, char * argv[])
     map = tilemap_load("levels/tilemap.map");
     vector2d_copy(path[0],map->start);
     vector2d_copy(path[1],map->end);
-	/*Path Finding*/
+	/*Path Finding
 	BreadthFirst* bFirst = BreadthFirst_Create(map);
 	BreadthFirst_MapOut(bFirst, '1');
 	BreadthFirst_GetPathToDestination(bFirst);
 	BreadthFirst_ReturnPathAsVectors(bFirst);
 	index = bFirst->graph->path->numElements -1;
 	nextNode = bFirst->graph->pathVectors[index];
+	*/
+	/*Pathfinding*/
+	DepthFirst* dFirst = DepthFirst_Create(map);
+	DepthFirst_MapOut(dFirst, '1');
+	DepthFirst_GetPathToDestination(dFirst);
+	DepthFirst_ReturnPathAsVectors(dFirst);
+	index = dFirst->graph->path->numElements - 1;
+	nextNode = dFirst->graph->pathVectors[index];
+	/*Stack	
+	stack = Stack_Create(1, sizeof(char));
+	Stack_Push(stack, 'a');
+	Stack_Push(stack, 'b');
+	Stack_Push(stack, 'c');
+	char c = Stack_Pop(stack).data;
+	char b = Stack_Pop(stack).data;
+	char a = Stack_Pop(stack).data;
+	*/
 	/*main game loop*/
     while(!done)
     {
@@ -76,7 +96,7 @@ int main(int argc, char * argv[])
 				index--;
 				if (index >= 0)
 				{
-					nextNode = bFirst->graph->pathVectors[index];
+					nextNode = dFirst->graph->pathVectors[index];
 					counter = 0;
 				}
 			}
@@ -90,7 +110,6 @@ int main(int argc, char * argv[])
 				NULL,
 				NULL,
 				2);
-
 			//UI elements last
             gf2d_sprite_draw(
                 mouse,
@@ -107,7 +126,9 @@ int main(int argc, char * argv[])
    //     slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
-	BreadthFirst_Free(bFirst);
+	//BreadthFirst_Free(bFirst);
+	DepthFirst_Free(dFirst);
+	//Stack_Free(stack);
 	return 0;
 }
 /*eol@eof*/

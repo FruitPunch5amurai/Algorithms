@@ -13,6 +13,7 @@ typedef struct BreadthFirst_t {
 }BreadthFirst;
 
 BreadthFirst* BreadthFirst_Create(TileMap* tilemap);
+void  BreadthFirst_Free(BreadthFirst* b);
 void  BreadthFirst_GetPathToDestination(BreadthFirst* b);
 void  BreadthFirst_MapOut(BreadthFirst* a, char tileToIgnore);
 void  BreadthFirst_ReturnPathAsVectors(BreadthFirst* b);
