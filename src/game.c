@@ -1,11 +1,9 @@
 #include <SDL.h>
-#include "Stack.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
 #include "DepthFirst.h"
 #include "BreadthFirst.h"
-#include "Stack.h"
 #include "tilemap.h"
 #include "Stack.h"
 
@@ -29,7 +27,6 @@ int main(int argc, char * argv[])
     Vector4D mouseColor = {0,0,255,200};
     static Vector2D path[2];
 	/*Stack*/
-	Stack* stack;
     /*program initializtion*/
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
