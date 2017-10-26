@@ -116,4 +116,12 @@
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\include\DepthFirst.h">
+      <Filter>Header Files</Filter>
+    </Text>
+    <Text Include="..\..\src\DepthFirst.c">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

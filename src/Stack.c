@@ -47,7 +47,6 @@ ListElement Stack_Pop(Stack* s)
 	slog("Stack passed is null");
 	return e;
 }
-
 ListElement Stack_Peep(Stack* s)
 {
 	if (s)

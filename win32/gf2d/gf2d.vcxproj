@@ -121,6 +121,10 @@
   <ItemGroup>
     <None Include="..\..\levels\tilemap.map" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\include\DepthFirst.h" />
+    <Text Include="..\..\src\DepthFirst.c" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include "Stack.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
 #include "simple_logger.h"
@@ -6,6 +7,7 @@
 #include "BreadthFirst.h"
 #include "Stack.h"
 #include "tilemap.h"
+#include "Stack.h"
 
 int main(int argc, char * argv[])
 {
@@ -13,10 +15,12 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
-	/*PathFinding Variables*/
+	/*PathFinding Variables and for updating draw*/
 	int counter = 0;
 	int index = 0;
 	Vector2D nextNode;
+
+	Stack* stack;
 
     int mx,my;
     float mf = 0;
@@ -91,7 +95,7 @@ int main(int argc, char * argv[])
             tilemap_draw(map,vector2d(86,24));
             tilemap_draw_path(path,2, map,vector2d(86,24));
 			counter++;
-			if (counter > 10)
+			if (counter > 15)
 			{
 				index--;
 				if (index >= 0)
