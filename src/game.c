@@ -6,6 +6,8 @@
 #include "BreadthFirst.h"
 #include "tilemap.h"
 #include "Stack.h"
+#include "HashMap.h"
+#include "LinkedList.h"
 
 int main(int argc, char * argv[])
 {
@@ -74,6 +76,10 @@ int main(int argc, char * argv[])
 	char b = Stack_Pop(stack).data;
 	char a = Stack_Pop(stack).data;
 	*/
+	/*Linked List Test*/
+	LinkedList* l;
+	l = LinkedList_Create(sizeof(char));
+
 	/*main game loop*/
     while(!done)
     {
@@ -129,6 +135,7 @@ int main(int argc, char * argv[])
     slog("---==== END ====---");
 	//BreadthFirst_Free(bFirst);
 	DepthFirst_Free(dFirst);
+	LinkedList_DeleteList(l);
 	//Stack_Free(stack);
 	return 0;
 }

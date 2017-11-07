@@ -93,7 +93,9 @@
     <ClCompile Include="..\..\src\gf2d_sprite.c" />
     <ClCompile Include="..\..\src\gf2d_vector.c" />
     <ClCompile Include="..\..\src\Graph.c" />
+    <ClCompile Include="..\..\src\HashMap.c" />
     <ClCompile Include="..\..\src\Heap.c" />
+    <ClCompile Include="..\..\src\LinkedList.c" />
     <ClCompile Include="..\..\src\List.c" />
     <ClCompile Include="..\..\src\PriorityQueue.c" />
     <ClCompile Include="..\..\src\simple_logger.c" />
@@ -111,7 +113,9 @@
     <ClInclude Include="..\..\include\gf2d_types.h" />
     <ClInclude Include="..\..\include\gf2d_vector.h" />
     <ClInclude Include="..\..\include\Graph.h" />
+    <ClInclude Include="..\..\include\HashMap.h" />
     <ClInclude Include="..\..\include\Heap.h" />
+    <ClInclude Include="..\..\include\LinkedList.h" />
     <ClInclude Include="..\..\include\List.h" />
     <ClInclude Include="..\..\include\PriorityQueue.h" />
     <ClInclude Include="..\..\include\simple_logger.h" />
