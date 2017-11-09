@@ -155,7 +155,33 @@ LinkedListNode * LinkedList_RemoveFromIndex(LinkedList * l, int index)
 		}
 	}
 }
-
+void LinkedList_DeleteNodeFromList(LinkedList* l, LinkedListNode* node)
+{
+	if (l != NULL)
+	{
+		if (node != NULL)
+		{
+			if (node->prev != NULL)
+			{
+				node->prev->next = node->next;
+			}
+			if (node->next != NULL)
+			{
+				node->next->prev = node->prev;
+			}
+			if (l->head == node)
+			{
+				l->head = NULL;
+			}
+			if (l->tail == node)
+			{
+				l->tail = NULL;
+			}
+			l->numberOfElements--;
+			LinkedList_DeleteNode(node);
+		}
+	}
+}
 void LinkedList_DeleteNode(LinkedListNode * node)
 {
 	free(node);

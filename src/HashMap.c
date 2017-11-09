@@ -1,4 +1,6 @@
 #include "HashMap.h"
+#include "LinkedList.h"
+#include "simple_logger.h"
 /* The implementation here was originally done by Gary S. Brown.  I have
 borrowed the tables directly, and made some minor changes to the
 crc32-function (including changing the interface). //ylo */
@@ -113,11 +115,30 @@ unsigned long crc32(const unsigned char *s, unsigned int len)
 	}
 	return crc32val;
 }
+void HashMap_DeleteMap(HashMap* m)
+{
+	int i;
+	if (m != NULL)
+	{
+		for (i = 0; i < m->elementArray->numElements;i++)
+		{
+			LinkedList_DeleteList(m->elementArray->list[i].data);
+		}
+		return;
+	}
+	slog("Cannot delete hashmap NULL");
+}
 HashMap* HashMap_Create(int size, size_t dataSize)
 {
 	HashMap * h;
+	int i;
 	h = (HashMap*)malloc(sizeof(HashMap));
-	h->elementArray = List_Create(size, dataSize);
+	h->elementArray = List_Create(size, sizeof(LinkedList));
+	for (i = 0; i < size;i++)
+	{
+		List_Insert(h->elementArray, LinkedList_Create(dataSize), i);
+		//LinkedList_Insert((LinkedList*)h->elementArray->list[i].data,"a");
+	}
 	return h;
 }
 
@@ -144,7 +165,68 @@ unsigned long HashMap_Hash(unsigned char * key)
 HashMap* HashMap_Insert(HashMap * h, const char * key, void * value)
 {
 	unsigned long index;
+	KV_Pair* kv;
+
+	kv = malloc(sizeof(KV_Pair));
+	index = HashMap_Hash(key);
+
+	kv->key = key;
+	kv->value = value;
+	LinkedList_Insert(h->elementArray->list[index].data, kv);
+	return h;
+}
+
+void* HashMap_GetValue(HashMap *h, const char * key)
+{
+	unsigned long index;
+	LinkedList* l;
+	KV_Pair* kv;
+	LinkedListNode* node;
+	int i;
 
 	index = HashMap_Hash(key);
-	return NULL;
+	l = h->elementArray->list[index].data;
+	node = l->head;
+	if (node == NULL)
+	{
+		slog("No data exists for given key");
+		return NULL;
+	}
+	for (i = 0;i < l->numberOfElements; i++)
+	{
+		kv = (KV_Pair*)(node->data);
+		if (kv->key == key)
+		{
+			return kv->value;
+		}
+		node = node->next;
+	}
+}
+HashMap* HashMap_Remove(HashMap *h, const char * key)
+{
+		unsigned long index;
+		LinkedList* l;
+		KV_Pair* kv;
+		LinkedListNode* node;
+		int i;
+
+		index = HashMap_Hash(key);
+		l = h->elementArray->list[index].data;
+		node = l->head;
+		if (node == NULL)
+		{
+			slog("No data exists for given key");
+			return NULL;
+		}
+		for (i = 0;i < l->numberOfElements; i++)
+		{
+			kv = (KV_Pair*)(node->data);
+			if (kv->key == key)
+			{
+				LinkedList_DeleteNodeFromList(l,node);
+				return h;
+			}
+			node = node->next;
+		}
+		return NULL;
 }

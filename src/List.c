@@ -58,7 +58,20 @@ List* List_Delete(List* list, int index)
 }
 ListElement List_Get(List* list, int index)
 {
-	return list->list[index];
+	if(list != NULL)
+	{
+		return list->list[index];
+	}
+	slog("List is equal to NULL");
+}
+ListElement* List_GetPtr(List* list, int index)
+{
+	if (list != NULL)
+	{
+		return &list->list[index];
+	}
+	slog("List is equal to NULL");
+
 }
 char* List_AsArray(List* list)
 {

@@ -22,6 +22,7 @@ LinkedList* LinkedList_InsertAtIndex(LinkedList* l, void * data,int index);
 LinkedListNode* LinkedList_RemoveFromHead(LinkedList* l);
 LinkedListNode* LinkedList_RemoveFromTail(LinkedList* l);
 LinkedListNode* LinkedList_RemoveFromIndex(LinkedList* l,int index);
+void LinkedList_DeleteNodeFromList(LinkedList* l, LinkedListNode* node);
 void LinkedList_DeleteNode(LinkedListNode* node);
 void LinkedList_DeleteList(LinkedList* n);
 #endif

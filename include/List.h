@@ -21,6 +21,7 @@ List* List_Create(Uint32 size, size_t elementSize);
 List* List_Insert(List* list, void* data, int index);
 List* List_Delete(List* list, int index);
 ListElement List_Get(List* list, int index);
+ListElement* List_GetPtr(List* list, int index);
 void List_Free(List* list);
 char* List_AsArray(List* list);
 

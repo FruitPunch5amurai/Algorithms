@@ -76,10 +76,16 @@ int main(int argc, char * argv[])
 	char b = Stack_Pop(stack).data;
 	char a = Stack_Pop(stack).data;
 	*/
-	/*Linked List Test*/
-	LinkedList* l;
-	l = LinkedList_Create(sizeof(char));
-
+	/*HashMap Test*/
+	HashMap* hashMap;
+	hashMap = HashMap_Create(100, sizeof(char));
+	HashMap_Insert(hashMap, "KI", "Wumbo");
+	char* a = HashMap_GetValue(hashMap, "KI");
+	HashMap_Remove(hashMap, "KI");
+	char* b = HashMap_GetValue(hashMap, "KI");
+	slog(a);
+	//	ListElement *e = List_GetPtr(hashMap->elementArray, 6);
+//	LinkedList* ll = (LinkedList*)e->data;
 	/*main game loop*/
     while(!done)
     {
@@ -135,7 +141,7 @@ int main(int argc, char * argv[])
     slog("---==== END ====---");
 	//BreadthFirst_Free(bFirst);
 	DepthFirst_Free(dFirst);
-	LinkedList_DeleteList(l);
+	HashMap_DeleteMap(hashMap);
 	//Stack_Free(stack);
 	return 0;
 }
