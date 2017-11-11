@@ -78,12 +78,21 @@ int main(int argc, char * argv[])
 	*/
 	/*HashMap Test*/
 	HashMap* hashMap;
-	hashMap = HashMap_Create(100, sizeof(char));
-	HashMap_Insert(hashMap, "KI", "Wumbo");
-	char* a = HashMap_GetValue(hashMap, "KI");
-	HashMap_Remove(hashMap, "KI");
+	hashMap = HashMap_Create(10, sizeof(char));
+	hashMap = HashMap_Insert(hashMap, "KI", "ABC");
+	hashMap = HashMap_Insert(hashMap, "AA", "DEF");
+	hashMap = HashMap_Insert(hashMap, "BB", "GHI");
+	hashMap = HashMap_Insert(hashMap, "CC", "JKL");
+	hashMap = HashMap_Insert(hashMap, "DD", "MNO");
+
+	char* KI = HashMap_GetValue(hashMap, "KI");
+	char* AA = HashMap_GetValue(hashMap, "AA");
+	char* BB = HashMap_GetValue(hashMap, "BB");
+	char* CC = HashMap_GetValue(hashMap, "CC");
+	char* DD = HashMap_GetValue(hashMap, "DD");
+	hashMap = HashMap_Remove(hashMap, "KI");
 	char* b = HashMap_GetValue(hashMap, "KI");
-	slog(a);
+	slog(KI);
 	//	ListElement *e = List_GetPtr(hashMap->elementArray, 6);
 //	LinkedList* ll = (LinkedList*)e->data;
 	/*main game loop*/

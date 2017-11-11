@@ -134,6 +134,8 @@ HashMap* HashMap_Create(int size, size_t dataSize)
 	int i;
 	h = (HashMap*)malloc(sizeof(HashMap));
 	h->elementArray = List_Create(size, sizeof(LinkedList));
+	h->threshold = 1;
+	h->dataSize = dataSize;
 	for (i = 0; i < size;i++)
 	{
 		List_Insert(h->elementArray, LinkedList_Create(dataSize), i);
@@ -141,8 +143,38 @@ HashMap* HashMap_Create(int size, size_t dataSize)
 	}
 	return h;
 }
+HashMap* HashMap_ReHash(HashMap* h)
+{
+	int oldHashSize, newHashSize,i,j;
+	unsigned long index;
+	HashMap *newHashMap;
+	LinkedList* l;
+	KV_Pair* pair;
+	LinkedListNode* node;
 
-unsigned long HashMap_Hash(unsigned char * key)
+	oldHashSize = h->elementArray->size;
+	newHashSize = oldHashSize * 2;
+	newHashMap = HashMap_Create(newHashSize, h->dataSize);
+
+	for (i = 0; i < oldHashSize;i++)
+	{
+		l = h->elementArray->list[i].data;
+		if (l->numberOfElements > 0)
+		{
+			node = l->head;
+			for (j = 0; j < l->numberOfElements;j++)
+			{
+				pair = node->data;
+				HashMap_Insert(newHashMap, pair->key, pair->value);
+				node = node->next;							
+			}
+		}
+	}
+	HashMap_DeleteMap(h);
+	return newHashMap;
+}
+
+unsigned long HashMap_Hash(HashMap* h,unsigned char * key)
 {
 	unsigned long keyH = crc32((unsigned char*)(key), strlen(key));
 
@@ -159,19 +191,42 @@ unsigned long HashMap_Hash(unsigned char * key)
 	/* Knuth's Multiplicative Method */
 	keyH = (keyH >> 3) * 2654435761;
 
-	return keyH % 20;
+	return keyH % h->elementArray->size;
 }
 
 HashMap* HashMap_Insert(HashMap * h, const char * key, void * value)
 {
 	unsigned long index;
-	KV_Pair* kv;
+	int i;
+	LinkedListNode* node;
+	KV_Pair* kv,*kv2;
+	LinkedList* l;
 
 	kv = malloc(sizeof(KV_Pair));
-	index = HashMap_Hash(key);
+	index = HashMap_Hash(h,key);
 
 	kv->key = key;
 	kv->value = value;
+	l = h->elementArray->list[index].data;
+	if (l->numberOfElements >= h->threshold)
+	{
+		//ReHash
+		h = HashMap_ReHash(h);
+		index = HashMap_Hash(h, key);
+		kv->key = key;
+		kv->value = value;
+		l = h->elementArray->list[index].data;
+	}
+	node = l->head;
+	for (i = 0; i < l->numberOfElements;i++)
+	{
+		kv2 = (KV_Pair*)node->data;
+		if (kv2->key == key)
+		{
+			slog("Duplicate Value found");
+			return h;
+		}
+	}
 	LinkedList_Insert(h->elementArray->list[index].data, kv);
 	return h;
 }
@@ -184,7 +239,7 @@ void* HashMap_GetValue(HashMap *h, const char * key)
 	LinkedListNode* node;
 	int i;
 
-	index = HashMap_Hash(key);
+	index = HashMap_Hash(h,key);
 	l = h->elementArray->list[index].data;
 	node = l->head;
 	if (node == NULL)
@@ -210,7 +265,7 @@ HashMap* HashMap_Remove(HashMap *h, const char * key)
 		LinkedListNode* node;
 		int i;
 
-		index = HashMap_Hash(key);
+		index = HashMap_Hash(h,key);
 		l = h->elementArray->list[index].data;
 		node = l->head;
 		if (node == NULL)
