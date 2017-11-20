@@ -19,9 +19,7 @@ int main(int argc, char * argv[])
 	int counter = 0;
 	int index = 0;
 	Vector2D nextNode;
-
 	Stack* stack;
-
     int mx,my;
     float mf = 0;
     Sprite *mouse;
@@ -60,13 +58,14 @@ int main(int argc, char * argv[])
 	index = bFirst->graph->path->numElements -1;
 	nextNode = bFirst->graph->pathVectors[index];
 	*/
-	/*Pathfinding*/
+	/*Pathfinding
 	DepthFirst* dFirst = DepthFirst_Create(map);
 	DepthFirst_MapOut(dFirst, '1');
 	DepthFirst_GetPathToDestination(dFirst);
 	DepthFirst_ReturnPathAsVectors(dFirst);
 	index = dFirst->graph->path->numElements - 1;
 	nextNode = dFirst->graph->pathVectors[index];
+	*/
 	/*Stack	
 	stack = Stack_Create(1, sizeof(char));
 	Stack_Push(stack, 'a');
@@ -76,7 +75,6 @@ int main(int argc, char * argv[])
 	char b = Stack_Pop(stack).data;
 	char a = Stack_Pop(stack).data;
 	*/
-	/*HashMap Test*/
 	HashMap* hashMap;
 	hashMap = HashMap_Create(10, sizeof(char));
 	hashMap = HashMap_Insert(hashMap, "KI", "ABC");
@@ -93,6 +91,7 @@ int main(int argc, char * argv[])
 	hashMap = HashMap_Remove(hashMap, "KI");
 	char* b = HashMap_GetValue(hashMap, "KI");
 	slog(KI);
+	
 	//	ListElement *e = List_GetPtr(hashMap->elementArray, 6);
 //	LinkedList* ll = (LinkedList*)e->data;
 	/*main game loop*/
@@ -110,8 +109,9 @@ int main(int argc, char * argv[])
             //backgrounds drawn first
             gf2d_sprite_draw_image(sprite,vector2d(0,0));
                         
-            tilemap_draw(map,vector2d(86,24));
-            tilemap_draw_path(path,2, map,vector2d(86,24));
+           //tilemap_draw(map,vector2d(86,24));
+           // tilemap_draw_path(path,2, map,vector2d(86,24));
+			/*
 			counter++;
 			if (counter > 15)
 			{
@@ -121,8 +121,8 @@ int main(int argc, char * argv[])
 					nextNode = dFirst->graph->pathVectors[index];
 					counter = 0;
 				}
-			}
-			//Player Draw
+			}*/
+			/*Player Draw
 			gf2d_sprite_draw(
 				map->tileset,
 				vector2d(vector2d(86, 24).x+ (nextNode.x * map->tileset->frame_w), vector2d(86, 24).y + (nextNode.y *map->tileset->frame_h)),
@@ -132,6 +132,7 @@ int main(int argc, char * argv[])
 				NULL,
 				NULL,
 				2);
+				*/
 			//UI elements last
             gf2d_sprite_draw(
                 mouse,
@@ -149,7 +150,7 @@ int main(int argc, char * argv[])
     }
     slog("---==== END ====---");
 	//BreadthFirst_Free(bFirst);
-	DepthFirst_Free(dFirst);
+	//DepthFirst_Free(dFirst);
 	HashMap_DeleteMap(hashMap);
 	//Stack_Free(stack);
 	return 0;
