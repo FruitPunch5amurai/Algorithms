@@ -1,5 +1,6 @@
 
-#include <SDL_image.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <stdlib.h>
 
 #include "simple_logger.h"
@@ -34,6 +35,7 @@ void gf2d_sprite_init(Uint32 max)
         slog("cannot intialize a sprite manager for Zero sprites!");
         return;
     }
+
     sprite_manager.max_sprites = max;
     sprite_manager.sprite_list = (Sprite *)malloc(sizeof(Sprite)*max);
     memset (sprite_manager.sprite_list,0,sizeof(Sprite)*max);

@@ -1,7 +1,7 @@
 #ifndef __GF2D_DRAW_H__
 #define __GF2D_DRAW_H__
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include "gf2d_vector.h"
 /**
  * @brief draw a pixel to the current rendering context
