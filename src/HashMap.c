@@ -250,7 +250,7 @@ void* HashMap_GetValue(HashMap *h, const char * key)
 	for (i = 0;i < l->numberOfElements; i++)
 	{
 		kv = (KV_Pair*)(node->data);
-		if (kv->key == key)
+		if (strcmp(kv->key, key) == 0)
 		{
 			return kv->value;
 		}
@@ -276,12 +276,12 @@ HashMap* HashMap_Remove(HashMap *h, const char * key)
 		for (i = 0;i < l->numberOfElements; i++)
 		{
 			kv = (KV_Pair*)(node->data);
-			if (kv->key == key)
+			if (strcmp(kv->key, key) == 0)
 			{
 				LinkedList_DeleteNodeFromList(l,node);
 				return h;
 			}
 			node = node->next;
 		}
-		return NULL;
+		return h;
 }
